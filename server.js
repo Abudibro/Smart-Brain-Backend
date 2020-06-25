@@ -16,7 +16,11 @@ const db = knex({
 });
 
 
+
 const app = express();
+
+
+
 
 app.use(cors());
 app.use(express.json());
@@ -27,7 +31,7 @@ app.get('/', (req, res ) => {
 })
 
 app.post('/signin',  signin.handleSignIn(db, bcrypt))
-app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt)})
+app.post('/register', cors(), (req, res) => {register.handleRegister(req, res, db, bcrypt)})
 app.get('/profile/:id', profile.handleProfile(db))
 app.put('/image', image.handleImage(db))
 app.post('/imageurl', (req, res) => {image.handleApiCall(req, res)})
